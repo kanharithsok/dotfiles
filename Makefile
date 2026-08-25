@@ -7,7 +7,7 @@
 
 SHELL := /bin/bash
 
-.PHONY: help update system brew mas microsoft clean status brew-list dump restore
+.PHONY: help update system brew mas microsoft clean status brew-list dump restore install link macos dump-dotfiles
 
 help:
 	@echo '🚀 macOS Update Commands:'
@@ -20,6 +20,10 @@ help:
 	@echo '  make brew-list    - List all installed packages'
 	@echo '  make dump         - Export all installed packages to Brewfile'
 	@echo '  make restore      - Install all packages from Brewfile (new machine)'
+	@echo '  make install      - Full fresh-machine setup (packages + dotfiles + macOS prefs)'
+	@echo '  make link         - Symlink dotfiles from this repo into $HOME'
+	@echo '  make macos        - Apply saved macOS system preferences'
+	@echo '  make dump-dotfiles- Copy current dotfiles from $HOME into this repo'
 	@echo '  make clean        - Clean up and free space'
 	@echo '  make help         - Show this help message'
 	@echo ''
@@ -204,3 +208,35 @@ restore:
 upgrade-%:
 	@echo "⬆️  Upgrading $(@:upgrade-%=%) with --no-quarantine..."
 	@HOMEBREW_CASK_OPTS="--no-quarantine" brew upgrade --greedy $(@:upgrade-%=%) || echo "⚠️  Upgrade failed for $(@:upgrade-%=%)"
+
+# Full fresh-machine setup: packages + dotfiles + macOS prefs
+install:
+	@chmod +x install.sh
+	@./install.sh
+
+link:
+	@chmod +x install.sh
+	@./install.sh --link-only
+
+macos:
+	@bash macos/defaults.sh
+
+# Copy current dotfiles from $HOME into this repo (then commit + push)
+DOTFILES_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
+
+dump-dotfiles:
+	@mkdir -p home/.ssh home/.warp home/.config/git config/zed config/vscode macos/plists
+	@cp ~/.gitconfig home/.gitconfig
+	@cp ~/.gitignore_global home/.gitignore_global
+	@cp ~/.hgignore_global home/.hgignore_global
+	@cp ~/.zprofile home/.zprofile
+	@cp ~/.ssh/config home/.ssh/config
+	@cp ~/.warp/settings.toml home/.warp/settings.toml
+	@cp ~/.config/git/ignore home/.config/git/ignore
+	@cp ~/.config/zed/settings.json config/zed/settings.json
+	@cp "$(HOME)/Library/Application Support/Code/User/settings.json" config/vscode/settings.json
+	@defaults export com.apple.dock macos/plists/dock.plist
+	@defaults export com.apple.controlcenter macos/plists/controlcenter.plist
+	@defaults export com.apple.finder macos/plists/finder.plist
+	@echo "✅ Dotfiles copied into repo. Review with: git diff"
+	@echo "   Then commit and push: git add -A && git commit -m 'Update dotfiles' && git push"

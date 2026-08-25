@@ -1,0 +1,9 @@
+.DS_Store
+*.log
+
+# Secrets — never commit these
+.ssh/id_*
+.ssh/known_hosts*
+.claude.json
+.gitflow_export
+.config/raycast/config.json

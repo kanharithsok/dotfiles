@@ -1,0 +1,8 @@
+{
+    "liveServer.settings.donotShowInfoMsg": true,
+    "explorer.confirmPasteNative": false,
+    "explorer.confirmDelete": false,
+    "update.showReleaseNotes": false,
+    "workbench.startupEditor": "none",
+    "explorer.confirmDragAndDrop": false
+}
