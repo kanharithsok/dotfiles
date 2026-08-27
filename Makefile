@@ -105,7 +105,7 @@ brew:
 	@OUTDATED=$$(brew outdated --greedy 2>/dev/null); \
 	if [ -n "$$OUTDATED" ]; then \
 		echo "🍺 Upgrading packages with --no-quarantine (no Gatekeeper popups)..."; \
-		HOMEBREW_CASK_OPTS="--no-quarantine" brew upgrade --greedy; \
+		HOMEBREW_CASK_OPTS="--no-quarantine" HOMEBREW_NO_ASK=1 brew upgrade --greedy; \
 	else \
 		echo "🍺 All Homebrew packages are up to date!"; \
 	fi
