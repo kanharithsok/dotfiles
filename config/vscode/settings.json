@@ -1,8 +1,74 @@
 {
-    "liveServer.settings.donotShowInfoMsg": true,
-    "explorer.confirmPasteNative": false,
-    "explorer.confirmDelete": false,
-    "update.showReleaseNotes": false,
-    "workbench.startupEditor": "none",
-    "explorer.confirmDragAndDrop": false
+  "workbench.startupEditor": "newUntitledFile",
+  "[dart]": {
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+    "editor.rulers": [80],
+    "editor.selectionHighlight": false,
+    "editor.suggest.snippetsPreventQuickSuggestions": false,
+    "editor.suggestSelection": "first",
+    "editor.tabCompletion": "onlySnippets",
+    "editor.wordBasedSuggestions": "off"
+  },
+  "explorer.confirmDelete": false,
+  "editor.suggestSelection": "first",
+  "dart.previewFlutterUiGuides": true,
+  "dart.previewFlutterUiGuidesCustomTracking": true,
+  "redhat.telemetry.enabled": true,
+  "security.workspace.trust.untrustedFiles": "open",
+  "update.showReleaseNotes": false,
+  "[python]": {
+    "editor.formatOnType": true
+  },
+  "javascript.format.semicolons": "insert",
+  "typescript.format.semicolons": "insert",
+  "explorer.confirmDragAndDrop": false,
+  "dart.debugExternalPackageLibraries": true,
+  "dart.debugSdkLibraries": false,
+  "errorLens.lintFilePaths": {
+    "eslint": ["**/*.eslintrc.{js,cjs,yaml,yml,json}", "**/*package.json"],
+    "Stylelint": [
+      "**/*.stylelintrc",
+      "**/*.stylelintrc.{cjs,js,json,yaml,yml}",
+      "**/*stylelint.config.{cjs,js}",
+      "**/*package.json"
+    ]
+  },
+  "eslint.codeActionsOnSave.rules": null,
+  "editor.codeActionsOnSave": {},
+  "editor.fontWeight": "normal",
+  "editor.insertSpaces": true,
+  "editor.tabSize": 2,
+  "liveServer.settings.donotShowInfoMsg": true,
+"editor.minimap.enabled": false,
+  "terminal.integrated.fontFamily": "MesloLGS NF",
+  "editor.accessibilitySupport": "off",
+  "workbench.editor.empty.hint": "hidden",
+  "prisma.showPrismaDataPlatformNotification": false,
+  "git.openRepositoryInParentFolders": "never",
+  "makefile.configureOnOpen": false,
+  "git.autofetch": true,
+  "security.promptForLocalFileProtocolHandling": false,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "editor.indentSize": "tabSize",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "git.confirmSync": false,
+  "[dockercompose]": {
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2,
+    "editor.autoIndent": "advanced",
+    "editor.quickSuggestions": {
+      "other": true,
+      "comments": false,
+      "strings": true
+    },
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
+  "[github-actions-workflow]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
+  "go.toolsManagement.autoUpdate": true,
+  "docker.extension.enableComposeLanguageServer": false,
+  "terminal.integrated.initialHint": false,
+  "svelte.enable-ts-plugin": true
 }
