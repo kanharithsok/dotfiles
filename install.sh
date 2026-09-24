@@ -22,13 +22,27 @@ if [ -f /usr/local/bin/brew ]; then eval "$(/usr/local/bin/brew shellenv)"; fi
 
 # 2. All packages from Brewfile
 if [ "$LINK_ONLY" -eq 0 ]; then
+  if ! command -v brew >/dev/null 2>&1; then
+    log "Homebrew not found in PATH — install it first: https://brew.sh"
+    exit 1
+  fi
+  BREW_PREFIX="$(brew --prefix)"
+  if [ ! -w "$BREW_PREFIX" ]; then
+    log "Homebrew at $BREW_PREFIX is owned by $(stat -f '%Su' "$BREW_PREFIX") and not writable by $(whoami)."
+    log "If another user already installed Homebrew, ask them to run 'make brew-share' once, then re-run this script."
+    exit 1
+  fi
   log "Installing packages from Brewfile..."
-  brew bundle install --file="$DOTFILES/Brewfile" --no-lock
+  HOMEBREW_CASK_OPTS="--no-quarantine" brew bundle install --file="$DOTFILES/Brewfile" --no-lock
 fi
 
 # 3. Symlink home dotfiles (backups are made if real files exist)
 link() {
   local src="$1" dst="$2"
+  if [ ! -e "$src" ]; then
+    log "Skipping $dst (missing $src)"
+    return
+  fi
   if [ -e "$dst" ] && [ ! -L "$dst" ]; then
     mv "$dst" "$dst.bak-$(date +%Y%m%d%H%M%S)"
   fi

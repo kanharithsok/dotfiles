@@ -34,6 +34,23 @@ make dump-dotfiles   # copy current dotfiles + macOS prefs into the repo
 git add -A && git commit -m "Update backups" && git push
 ```
 
+`make update` upgrades brew-managed formulae/casks plus App Store and Microsoft apps. Self-updating casks (Chrome, VS Code, Slack, Zed…) are skipped by Homebrew and update themselves in place — force one with `make upgrade-<name>` if needed.
+
+## Two users on one Mac
+
+The Makefile is user-agnostic (uses `$HOME` and `whoami`), but Homebrew can only have one owner. Share it once, then both accounts can run `make update`, `make install`, etc.
+
+```sh
+make brew-share   # run once, as the user who owns /opt/homebrew (needs sudo)
+```
+
+This makes the Homebrew prefix group-writable by `admin` (both users) with setgid so new files stay shared. If a Homebrew update ever resets permissions, just re-run it.
+
+Notes:
+- Each user should clone the repo into their own home (`~/dotfiles`) and run `make link` once.
+- `make dump` / `make dump-dotfiles` back up the *current* user's packages and dotfiles.
+- `mas` uses whichever Apple ID is signed in for that user.
+
 ## What's backed up
 
 | What | Where |
